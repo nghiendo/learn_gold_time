@@ -1,8 +1,15 @@
-from flask import request
-from Models.Users import insert
+from flask import request, redirect
+from Helper.database import Database
 def SignIn():
-    if request.method != 'GET':
-        return False
+    if request.method != 'POST':
+        return "Hello World"
     email = request.form['email']
     password = request.form['password']
-    return True
+    User = Database('Users')
+    users = User.select({
+        "email": email,
+        "password": password
+    })
+    print(users)
+
+    return "Hello World"

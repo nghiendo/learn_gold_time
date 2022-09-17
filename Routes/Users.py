@@ -1,4 +1,6 @@
 from flask import Blueprint
 
+from Controllers.Users import SignIn
+
 users_router = Blueprint("users_router", __name__)
-users_router.route("/signin", methods=['GET'])
+users_router.route("/signin", methods=['POST'])(SignIn)
