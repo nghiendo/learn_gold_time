@@ -8,7 +8,7 @@ app.register_blueprint(courses_router, url_prefix="/courses")
 
 @app.route("/")
 def index():
-    return render_template('Dashboard.html', title="Dashboard")
+    return render_template('Login.html', title="Login")
 
 if __name__ == "main":
     app.run()
