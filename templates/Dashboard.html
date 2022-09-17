@@ -1,6 +1,18 @@
 {% extends 'Base.html' %}
 
 {% block content %}
+<div class="col-sm-12 mb-4">
+    <div class="row">
+        <div class="col-6 text-start">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddCourse">Add Course</button>
+
+        </div>
+        <div class="col-6 text-end" style="display: flex;align-items:center;justify-content:end">
+            Chào Khoa
+
+        </div>
+    </div>
+</div>
 <div class="col-md-3">
     <div class="card">
         <img src="https://media.geeksforgeeks.org/wp-content/uploads/20220520182504/ClassificationofDataStructure-660x347.jpg" alt="">
@@ -14,6 +26,32 @@
         <img src="https://media.geeksforgeeks.org/wp-content/uploads/20220520182504/ClassificationofDataStructure-660x347.jpg" alt="">
         <div class="card-body">
             <div class="card-title">Cấu trúc rời rạc</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAddCourse">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">
+                    Thêm lộ trình học
+                </h1>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group mb-3">
+                        <label for="name">Name's course:</label>
+                        <input type="text" id="name" name="name" class="form-control" autofocus="true">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="img">Image:</label>
+                        <input type="text" id="img" name="img" class="form-control">
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" value="Add">
+                </form>
+            </div>
         </div>
     </div>
 </div>

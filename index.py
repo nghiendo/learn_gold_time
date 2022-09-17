@@ -5,11 +5,11 @@ app = Flask(__name__)
 
 app.config.from_object("config")
 app.register_blueprint(courses_router, url_prefix="/courses")
-app.register_blueprint(users_router, url_prefix="/users")
+app.register_blueprint(users_router, url_prefix="/")
 
-@app.route("/")
-def index():
-    return render_template('Login.html', title="Login")
+# @app.route("/")
+# def index():
+#     return render_template('Login.html', title="Login")
 
 if __name__ == "main":
     app.run()
