@@ -3,7 +3,7 @@ from Routes.Courses import courses_router
 app = Flask(__name__)
 
 app.config.from_object("config")
-app.register_blueprint(courses_router, "/courses")
+app.register_blueprint(courses_router, url_prefix="/courses")
 
 
 @app.route("/")
