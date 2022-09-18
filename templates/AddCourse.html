@@ -1,0 +1,61 @@
+{% extends 'Base.html' %}
+{% block title %}
+Thêm bài học
+{% endblock %}
+
+{% block content%}
+<div class="col-sm-6">
+
+    <form action="/courses/add" method="post">
+        <div class="form-group mb-3">
+            <label for="name">Name's course:</label>
+            <input type="text" id="name" name="name" class="form-control" autofocus="true" placeholder="Data structure..." value="{{ data['name'] }}">
+        </div>
+        <div class="form-group mb-3">
+            <label for="img">Image:</label>
+            <input type="text" id="img" name="img" class="form-control" placeholder="Aa..." value="{{ data['img'] }}">
+        </div>
+        <div class="form-group mb-3">
+            <label for="tags">Tags:</label>
+            <input type="text" id="tags" name="tags" class="form-control" placeholder="tag1, tag2,...">
+            <!-- <select name="s-tags" id="s-tags" class="form-control"></select> -->
+            <select class="form-select" id="s-tags" multiple aria-label="multiple select example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+        </div>
+        {% if status == 1 %}
+            <p class="text-success">Đã thêm thành công</p>
+        {% endif %}
+        {% if status == 0 %}
+            <p class="text-danger">Có lỗi đã xảy ra</p>
+        {% endif %}
+        <input type="submit" class="btn btn-primary" value="Add">
+    </form>
+</div>
+<script>
+    var sel = []
+    var el = document.getElementById("s-tags")
+    el.addEventListener("click", function(){
+        for(var i = 0; i < el.length; i++){
+            if(el[i].selected){
+                if(sel.includes(el[i].innerHTML) == false)
+                    sel.push(el[i].innerHTML)
+            }else{
+                for(const e in sel){
+                    if(sel[e] == el[i].innerHTML){
+                        sel.splice(e, 1)
+                    }
+                }
+            }
+        }
+        var str = ""
+        for(const e in sel){
+            str += sel[e] + ", "
+        }
+        document.getElementById("tags").value = str
+    })
+</script>
+{% endblock %}

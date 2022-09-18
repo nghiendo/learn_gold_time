@@ -16,10 +16,13 @@ def loadSite(Site = None, title = None, status = 0, data = []):
     return render_template(Site, title=title, data=data, status=status)
 
 def checkAuth(_token):
-    token = _token.split(".")
-    if len(token) == 0:
+    try:
+        if len(_token) == 0:
+            return 0
+        token = _token.split(".")
+        if int(time()) > int(token[1]):
+            return 0
+        return 1
+    except:
         return 0
-    if int(time()) > int(token[1]):
-        return 0
-    return 1
 

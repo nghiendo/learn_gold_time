@@ -28,5 +28,12 @@ class Database():
                     result.append(x)
             return result
     
-    def insert(self):
-        pass
+    def insert(self, data):
+        if path.exists(self.table_dir) is False:
+            return 0
+        with open(self.table_dir, "r+") as file:
+            content = json.load(file)
+            content.append(data)
+            file.seek(0)
+            json.dump(content, file, indent=4)
+            return 1
