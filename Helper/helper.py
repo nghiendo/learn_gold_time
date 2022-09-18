@@ -1,4 +1,5 @@
 from hashlib import md5, sha1
+from html.parser import HTMLParser
 from time import time
 from flask import render_template
 import json
@@ -25,4 +26,3 @@ def checkAuth(_token):
         return 1
     except:
         return 0
-

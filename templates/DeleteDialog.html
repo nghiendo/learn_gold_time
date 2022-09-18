@@ -1,0 +1,27 @@
+<div class="modal fade" id="deletebox">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content bg-dark">
+            <div class="modal-header text-light">
+                Bạn chắc chắn muốn xóa?
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 text-start">
+                        <button class="btn btn-outline-warning" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a href="" id="link-id-del" class="btn btn-outline-danger">Yes, Delete it!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const btns = document.querySelectorAll("[data-bs-toggle]")
+    btns.forEach(btn =>{
+        btn.addEventListener("click", function(e){
+            document.getElementById("link-id-del").href = "/delete/"+btn.id+"/query=delete&time="+Date.now()+"&key="+((Math.random()+9999)*9999).toString().split('').map(Number).map(n => (n || 10) + 64).map(c => String.fromCharCode(c)).join('')
+        })
+    })
+</script>
