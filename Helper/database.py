@@ -21,9 +21,11 @@ class Database():
                     if x[key] == value:
                         flag = True
                     else:
-                        if flag is True:
-                            flag = False
-                            break
+                        # print(x, value, flag, end="")
+                        # if flag is True:
+                        #     flag = False
+                        #     break
+                        break
                 if flag is True:
                     result.append(x)
             return result
