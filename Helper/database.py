@@ -1,4 +1,5 @@
 import json
+from operator import truediv
 from os import path
 from config import rootfile
 class Database():
@@ -6,6 +7,8 @@ class Database():
     def __init__(self, table) -> None:
         table = table
         self.table_dir = "{}/Data/{}.json".format(rootfile(), table)
+        if path.exists(self.table_dir) is False:
+            return 0
 
     def select(self, WHERE = None):
         if path.exists(self.table_dir) is False:
@@ -39,3 +42,23 @@ class Database():
             file.seek(0)
             json.dump(content, file, indent=4)
             return 1
+
+    def delete(self, WHERE = None):
+        with open(self.table_dir, "r") as file:
+            if WHERE is None:
+                return 0
+            content = json.load(file)
+            for i,x in enumerate(content):
+                flag = False
+                for key, value in WHERE.items():
+                    if x[key] == value:
+                        flag = True
+                    else:
+                        flag = False
+                        break
+                if flag == True:
+                    del content[i]
+                    with open(self.table_dir, "w") as f:
+                        json.dump(content, f, indent=4)
+                        return 1                        
+            return 0

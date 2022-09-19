@@ -21,7 +21,7 @@
     const btns = document.querySelectorAll("[data-bs-toggle]")
     btns.forEach(btn =>{
         btn.addEventListener("click", function(e){
-            document.getElementById("link-id-del").href = "/delete/"+btn.id+"/query=delete&time="+Date.now()+"&key="+((Math.random()+9999)*9999).toString().split('').map(Number).map(n => (n || 10) + 64).map(c => String.fromCharCode(c)).join('')
+            document.getElementById("link-id-del").href = "/delete/"+btn.id+"/query=delete&time="+Date.now()+"&key="+randomString(100)
         })
     })
 </script>

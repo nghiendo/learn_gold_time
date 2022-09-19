@@ -1,5 +1,5 @@
 import json
-from flask import render_template, request
+from flask import render_template, request, redirect
 from Helper.database import Database
 
 from Helper.helper import loadSite
@@ -28,3 +28,7 @@ def insert():
 def viewCourse(id):
     course = coursedb.select({"id": int(id)})[0]
     return loadSite("CourseDetail.html", data=course)
+
+def deleteCourse(id):
+    coursedb.delete({"id": int(id)})
+    return redirect("/")
