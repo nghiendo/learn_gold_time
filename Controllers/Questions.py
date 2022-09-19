@@ -17,6 +17,7 @@ def addQuestionCourse(cid):
 
     course = Database("Courses").select({"id": cid})[0]
     question = Database("Questions").select({"cid": cid})
+    print(question)
     return loadSite("AddQuestion.html", data={"course": course, "questions": question})
 
 def checkAnswers(answers, topic):
@@ -33,3 +34,8 @@ def checkAnswers(answers, topic):
             ans = ans[0]
         result += "{}, ".format(ans["id"])
     return result
+
+def deleteQuestionCourse(cid):
+    question = Database("Questions").select({"id": cid})
+    print(question)
+    return cid

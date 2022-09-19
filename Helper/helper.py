@@ -21,7 +21,7 @@ def checkAuth(_token):
         if len(_token) == 0:
             return 0
         token = _token.split(".")
-        if int(time()) > int(token[1]):
+        if int(time()) > int(token[1]) and token[2] != 5:
             return 0
         return 1
     except:

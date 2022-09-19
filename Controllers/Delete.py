@@ -7,8 +7,12 @@ def index(id, params):
     id = id[1:]
     if(obj == "C"):
         return deleteCourse(id)
+    elif(obj == "Q"):
+        return deleteQuestion(id)
     return obj
 
 def deleteCourse(id):
     return redirect("/courses/delete/"+id)
 
+def deleteQuestion(id):
+    return redirect("/questions/delete/"+id)

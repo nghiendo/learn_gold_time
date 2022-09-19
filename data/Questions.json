@@ -6,5 +6,21 @@
         "answers": "ch\u00e0o, t\u1ea1m bi\u1ec7t, goodbye",
         "topic": "CNTT",
         "created_at": "2022-09-18 15:09:18.851670"
+    },
+    {
+        "id": "Q1663563408",
+        "cid": 1663472879,
+        "title": "De's Morgan",
+        "answers": "basdf",
+        "topic": "CNTT",
+        "created_at": "2022-09-19 11:56:48.900722"
+    },
+    {
+        "id": "Q1663563435",
+        "cid": 1663472879,
+        "title": "De's Morgan",
+        "answers": "1, 2, 3",
+        "topic": "CNTT",
+        "created_at": "2022-09-19 11:57:15.408944"
     }
 ]
