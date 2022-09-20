@@ -101,10 +101,29 @@ def takeExam(id):
     del exam
     return loadSite("Exam.html", title, data={"questions": questions, "score": score})
 
+def getAnswers(questions = []):
+    db_answers = Database("Answers")
+
+    for i, question in enumerate(questions):
+        ans_arr = question['answers'].split(", ")
+        ans_ = []
+        for ans in ans_arr:
+            answers = db_answers.select({"id": ans}, 1)
+            if len(answers) == 0:
+                continue
+            ans_.append(answers[0])
+        questions[i]['answers'] = ans_.copy()
+    
+    return questions
+
+
+
 def viewCourse(id):
     try:
         course = coursedb.select({"id": int(id)})[0]
-        return loadSite("CourseDetail.html", course['name'], data=course)
+        questions = Database("Questions").select()
+        questions = getAnswers(questions)
+        return loadSite("CourseDetail.html", course['name'], data={"course":course,"questions":questions})
     except:
         return redirect("/courses")
 
