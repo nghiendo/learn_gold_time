@@ -7,8 +7,6 @@ class Database():
     def __init__(self, table) -> None:
         table = table
         self.table_dir = "{}/Data/{}.json".format(rootfile(), table)
-        if path.exists(self.table_dir) is False:
-            return 0
 
     def select(self, WHERE = None, limit = None):
         if path.exists(self.table_dir) is False:
