@@ -15,4 +15,5 @@ def deleteCourse(id):
     return redirect("/courses/delete/"+id)
 
 def deleteQuestion(id):
-    return redirect("/questions/delete/"+id)
+    qc = id.split("C")
+    return redirect("/questions/delete/{}/{}".format(qc[0], qc[1]))

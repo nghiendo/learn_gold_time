@@ -10,7 +10,7 @@ class Database():
         if path.exists(self.table_dir) is False:
             return 0
 
-    def select(self, WHERE = None):
+    def select(self, WHERE = None, limit = None):
         if path.exists(self.table_dir) is False:
             return []
         with open(self.table_dir, "r") as file:
@@ -18,7 +18,11 @@ class Database():
             if WHERE is None:
                 return data
             result = []
+            i = 0
             for x in data:
+                if limit is not None:
+                    if limit == i:
+                        return result
                 flag = False
                 for key, value in WHERE.items():
                     if x[key] == value:
@@ -31,6 +35,7 @@ class Database():
                         break
                 if flag is True:
                     result.append(x)
+                    i += 1
             return result
     
     def insert(self, data):

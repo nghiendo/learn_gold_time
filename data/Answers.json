@@ -1,37 +1,102 @@
 [
     {
-        "id": "A1663488558",
-        "ans": "ch\u00e0o",
+        "id": "A1663640737984",
+        "ans": "\u00ac( p ^ q ) \u21d4 \u00acp v \u00acq",
         "topic": "CNTT"
     },
     {
-        "id": "A1663488558",
-        "ans": "t\u1ea1m bi\u1ec7t",
+        "id": "A1663640737988",
+        "ans": "\u00ac( p v q ) \u21d4 \u00acp ^ \u00acq",
         "topic": "CNTT"
     },
     {
-        "id": "A1663488558",
-        "ans": "goodbye",
+        "id": "A1663640781335",
+        "ans": "p ^ q \u21d4 q ^ p",
         "topic": "CNTT"
     },
     {
-        "id": "A1663563408",
-        "ans": "basdf",
+        "id": "A1663640781340",
+        "ans": "p v q \u21d4 q v p",
         "topic": "CNTT"
     },
     {
-        "id": "A1663563435",
-        "ans": "1",
+        "id": "A1663640825920",
+        "ans": "( p ^ q ) ^ r \u21d4 p ^ ( q v r )",
         "topic": "CNTT"
     },
     {
-        "id": "A1663563435",
-        "ans": "2",
+        "id": "A1663640825925",
+        "ans": "( p v q ) v r \u21d4 p v ( q v r )",
         "topic": "CNTT"
     },
     {
-        "id": "A1663563435",
-        "ans": "3",
+        "id": "A1663640884488",
+        "ans": "p ^ ( q v r ) \u21d4 ( p ^ q ) v ( p ^ r )",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663640884493",
+        "ans": "p v ( q ^ r ) \u21d4 ( p v q ) ^ ( p v r )",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663640903058",
+        "ans": "p ^ 1 \u21d4 p",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663640903062",
+        "ans": "p v 0 \u21d4 p",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663640929231",
+        "ans": "\u00ac\u00acp \u21d4 p",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663640957097",
+        "ans": "p v ( p ^ q ) \u21d4 p",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663640957101",
+        "ans": "p ^ ( p v q ) \u21d4 p",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663641007702",
+        "ans": "p \u2192 q \u21d4 \u00acp v q \u21d4 \u00acq \u2192 \u00acp",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663641040041",
+        "ans": "p v t \u21d4 t",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663641040045",
+        "ans": "p ^ c \u21d4 c",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663641065523",
+        "ans": "p ^ q \u21d4 p",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663641065530",
+        "ans": "p v p \u21d4 p",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663641134829",
+        "ans": "p v \u00acp \u21d4 1",
+        "topic": "CNTT"
+    },
+    {
+        "id": "A1663641134836",
+        "ans": "p ^ \u00acp \u21d4 0",
         "topic": "CNTT"
     }
 ]

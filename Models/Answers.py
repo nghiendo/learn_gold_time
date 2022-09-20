@@ -8,7 +8,7 @@ class Answers():
     
     def serialize(self):
         return {
-            "id": "{obj}{time}".format(obj="A", time=int(time())),
+            "id": "{obj}{time}".format(obj="A", time=int(time()*1000)),
             "ans": self.ans,
             "topic": self.topic,
         }

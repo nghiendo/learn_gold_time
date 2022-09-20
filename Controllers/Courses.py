@@ -1,5 +1,5 @@
-import json
-from flask import render_template, request, redirect
+from random import shuffle
+from flask import render_template, request, redirect, jsonify
 from Helper.database import Database
 
 from Helper.helper import loadSite
@@ -9,7 +9,66 @@ coursedb = Database("Courses")
 
 def index():
     course = coursedb.select()
-    return loadSite("Dashboard.html", "Courses Detail", data={"courses": course})
+    return loadSite("Dashboard.html", title="Courses Detail", data={"courses": course})
+
+def getQuestions(cid, maxLength):
+    result = []
+    root_answer = []
+    questions = Database("Questions").select({"cid": cid})
+    answers = Database("Answers")
+    for question in questions:
+        ans = {
+            "qid": question['id'],
+            "title": question['title'],
+            "answers": {}
+        }
+        for ans_id in question['answers'].split(", "):
+            ans['answers'] = answers.select({"id": ans_id}, 1)[0]
+            root_answer.append(ans.copy())
+    del questions
+    del answers
+    tmp = []
+    i = ind = 0
+    for question in root_answer:
+        if question['qid'] in tmp:
+            continue
+        ques = {
+            "id": question['qid'],
+            "title": question['title'],
+            "a":[{"id": question['answers']['id'], "a": question['answers']['ans'], "i": ind}],
+            "c": question['answers']['id'],
+        }
+        ind += 1
+        for ans in root_answer:
+            if len(ques['a']) == 4:
+                break
+            shuffle(root_answer)
+            if question['qid'] != ans['qid']:
+                ques['a'].append({"id": ans['answers']['id'], "a": ans['answers']['ans'], "i": ind})
+                ind += 1
+        shuffle(ques['a'])
+        result.append(ques.copy())
+        tmp.append(question['qid'])
+        i += 1
+        if i == maxLength:
+            break
+    del tmp
+    del root_answer
+    return result
+
+def checkCorrect(answers = []):
+    cor = 0
+    for x in answers:
+        question = Database("Questions").select({"id": x['qid']}, 1)
+        if question is None:
+            continue
+
+        if x['aid'] in question[0]['answers'].split(", "):
+            cor += 1
+    score = cor * 10 / len(answers)
+    return "{:.1f}".format(score)
+    
+
 
 def insert():
     status = -1
@@ -25,9 +84,29 @@ def insert():
             status = 1
     return loadSite("AddCourse.html", status=status, data=request.form)
 
+def takeExam(id):
+    score = None
+    if request.method == "POST":
+        questions = []
+        for x in request.form:
+            questions.append({"qid": x, "aid": request.form[x]})
+        score = checkCorrect(questions)
+        del questions
+        
+    exam = coursedb.select({"id": int(id)}, 1)
+    if len(exam) == 0:
+        return redirect("/courses")
+    title = exam[0]['name']
+    questions = getQuestions(exam[0]['id'], 5)
+    del exam
+    return loadSite("Exam.html", title, data={"questions": questions, "score": score})
+
 def viewCourse(id):
-    course = coursedb.select({"id": int(id)})[0]
-    return loadSite("CourseDetail.html", data=course)
+    try:
+        course = coursedb.select({"id": int(id)})[0]
+        return loadSite("CourseDetail.html", course['name'], data=course)
+    except:
+        return redirect("/courses")
 
 def deleteCourse(id):
     coursedb.delete({"id": int(id)})

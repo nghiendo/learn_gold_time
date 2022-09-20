@@ -18,3 +18,6 @@ class Question():
             "topic": self.topic,
             "created_at": str(datetime.now()) 
         }
+
+    def ques_ans(self):
+        pass
