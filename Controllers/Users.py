@@ -18,7 +18,7 @@ def checkForm(req):
         "email": email,
         "password": md5(password.encode('utf-8')).hexdigest()
     })
-
+    return md5(password.encode('utf-8')).hexdigest()
     if len(users) == 0:
         return 0
     return 1
