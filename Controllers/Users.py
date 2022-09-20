@@ -33,5 +33,5 @@ def SignIn():
 
     resp = make_response(render_template("Login.html"))
     resp.set_cookie("_accessToken", token, 604800)
-    return resp
+    return token
 
