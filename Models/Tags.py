@@ -6,8 +6,6 @@ class Tags():
         self.root = root
     def serialize(self):
         return {
-            "id": "{}{}".format("T", int(time() * 100)),
+            "id": "{}{}".format("T", int((time() * 100)%1000)),
             "name": self.name,
-            "root": self.root,
-            "child": []
         }

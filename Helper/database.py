@@ -65,3 +65,25 @@ class Database():
                         json.dump(content, f, indent=4)
                         return 1                        
             return 0
+
+    def update(self, data = {}, WHERE = {}):
+        try:
+            with open(self.table_dir, "r") as file:
+                content = json.load(file)
+                for i, x in enumerate(content):
+                    flag = False
+                    for key, value in WHERE.items():
+                        if x[key] == value:
+                            flag = True
+                        else:
+                            flag = False
+                            break
+                    if flag == True:
+                        for key, value in data.items():
+                            content[i][key] = value
+                        with open(self.table_dir, "w") as f:
+                            json.dump(content, f, indent=4)
+                            return 1
+                return 0
+        except:
+            return 0

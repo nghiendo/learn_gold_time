@@ -5,6 +5,11 @@
 
 {% block content %}
 <div class="col-sm-4">
-    
+    <a href="/tags/add">Add Tag</a>
+    {% for tag in data.tags %}
+        <a href="/tags/edit/{{tag.id}}" class="badge text-bg-secondary ">
+            {{tag.name}}
+        </a>
+    {% endfor %}
 </div>
 {% endblock %}

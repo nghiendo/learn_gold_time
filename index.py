@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config.from_object("config")
 def blabla():
     token = request.cookies.get("_accessToken")
-    if token is None or checkAuth(token) is False:
+    if token is None or checkAuth(token) is False or len(token) == 0:
         return SignIn()
 app.before_request_funcs = {
     None: [blabla]

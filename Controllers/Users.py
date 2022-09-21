@@ -1,7 +1,7 @@
 from hashlib import md5, sha1
 import json
 from time import time
-from flask import request, redirect, render_template, make_response
+from flask import request, redirect, render_template, make_response, session
 from Helper.database import Database
 from Helper.helper import checkAuth, loadSite, response
 
@@ -21,16 +21,16 @@ def checkForm(req):
 
     if len(users) == 0:
         return 0
-    return 1
+    return email
 
 def SignIn():
     if checkAuth(request.cookies.get('_accessToken')):
         return redirect("/courses")
     result = checkForm(request)
-    
-    if result == 0:
-        return loadSite("Login.html", "Sign In", status = result)
-    token = "{}.{}.{}".format(sha1(request.form['email'].encode('utf-8')).hexdigest(), int(time() + 43200), 5)
+    token = None
+    if type(result) is str:
+        # return loadSite("Login.html", "Sign In", status = result)
+        token = "{}.{}.{}".format(sha1(result.encode('utf-8')).hexdigest(), int(time() + 43200), 5)
 
     resp = make_response(render_template("Login.html"))
     resp.set_cookie("_accessToken", token, 604800)

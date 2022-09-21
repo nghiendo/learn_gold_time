@@ -1,27 +1,26 @@
 from Helper.database import Database
-from flask import request
+from flask import request, redirect
 from Helper.helper import loadSite
 from Models.Tags import Tags
-
-def index():
-    tags = Database("Tags").select()
-    tree = []
-    for tag in tags:
-        if tag['root'] == "root":
-            tree.append(tag)
-        else:
-            for i, t in enumerate(tags):
-                if t['id'] == tag['root']:
-                    tree[i]['child'].append(tag)
-    print(tree)
-    return loadSite("TreeTags.html", "Tree Tags")
 
 def addTag():
     tag = {}
     if request.method == "POST":
         name = request.form['name']
-        root = request.form['root']
-        tag = Tags(name, root).serialize()
+        tag = Tags(name).serialize()
+        if len(Database("Tags").select()) >= 999:
+            return redirect("/tags/add")
         Database("Tags").insert(tag)
     tags = Database("Tags").select()
-    return loadSite("AddTag.html", "Add Tag", data={"tags": tags, "tag": tag})
+    return loadSite("AddTag.html", "Add Tag", data={"tag": tag, "tags": tags})
+
+def editTag(id):
+    try:
+        if request.method == "POST":
+            name = request.form['name']
+            Database("Tags").update({"name": name}, {"id": id})
+        tag = Database("Tags").select({"id": id})
+        tags = Database("Tags").select()
+        return loadSite("AddTag.html", "Edit Tag", data={"tag": tag[0], "tags": tags})
+    except:
+        return redirect("/tags/add")

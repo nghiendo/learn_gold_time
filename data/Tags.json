@@ -1,20 +1,18 @@
 [
     {
         "id": "T166369435281",
-        "name": "HUFI",
-        "root": "root",
-        "child": []
+        "name": "HUFI"
     },
     {
         "id": "T166369435612",
-        "name": "CNTT",
-        "root": "T166369435281",
-        "child": []
+        "name": "CNTT"
     },
     {
         "id": "T166369435985",
-        "name": "MATH",
-        "root": "T166369435281",
-        "child": []
+        "name": "MATHEMATICAL"
+    },
+    {
+        "id": "T81",
+        "name": "Equivalence laws"
     }
 ]

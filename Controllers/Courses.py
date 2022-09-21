@@ -82,7 +82,8 @@ def insert():
         status = 0
         if db.insert(course):
             status = 1
-    return loadSite("AddCourse.html", status=status, data=request.form)
+    tags = Database("Tags").select()
+    return loadSite("AddCourse.html", status=status, data={"course":request.form, "tags": tags})
 
 def takeExam(id):
     score = None
