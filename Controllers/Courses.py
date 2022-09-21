@@ -1,13 +1,15 @@
 from random import shuffle
-from flask import render_template, request, redirect, jsonify
+from flask import render_template, request, redirect, jsonify, url_for
 from Helper.database import Database
 
-from Helper.helper import loadSite
+from Helper.helper import checkAuth, loadSite
 from Models.Courses import Course
 
 coursedb = Database("Courses")
 
 def index():
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     course = coursedb.select()
     return loadSite("Dashboard.html", title="Courses Detail", data={"courses": course})
 
@@ -71,6 +73,8 @@ def checkCorrect(answers = []):
 
 
 def insert():
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     status = -1
     if request.method == "POST":
         course = request.form['name']
@@ -86,6 +90,8 @@ def insert():
     return loadSite("AddCourse.html", status=status, data={"course":request.form, "tags": tags})
 
 def takeExam(id):
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     score = None
     if request.method == "POST":
         questions = []
@@ -120,6 +126,8 @@ def getAnswers(questions = []):
 
 
 def viewCourse(id):
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     try:
         course = coursedb.select({"id": int(id)})[0]
         questions = Database("Questions").select()
@@ -129,5 +137,7 @@ def viewCourse(id):
         return redirect("/courses")
 
 def deleteCourse(id):
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     coursedb.delete({"id": int(id)})
     return redirect("/")

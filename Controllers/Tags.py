@@ -1,9 +1,11 @@
 from Helper.database import Database
-from flask import request, redirect
-from Helper.helper import loadSite
+from flask import request, redirect, url_for
+from Helper.helper import loadSite, checkAuth
 from Models.Tags import Tags
 
 def addTag():
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     tag = {}
     if request.method == "POST":
         name = request.form['name']
@@ -15,6 +17,8 @@ def addTag():
     return loadSite("AddTag.html", "Add Tag", data={"tag": tag, "tags": tags})
 
 def editTag(id):
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     try:
         if request.method == "POST":
             name = request.form['name']

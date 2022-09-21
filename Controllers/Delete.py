@@ -1,8 +1,8 @@
 from flask import request, redirect
 from Helper.helper import checkAuth
 def index(id, params):
-    if checkAuth(request.cookies.get("_accessToken")) is False:
-        return redirect("/")
+    if checkAuth(request.cookies.get("_accessToken")) == 0:
+        return redirect(url_for('users_router.SignIn'))
     obj = id[0]
     id = id[1:]
     if(obj == "C"):

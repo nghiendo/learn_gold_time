@@ -1,7 +1,7 @@
 from hashlib import md5, sha1
 from html.parser import HTMLParser
 from time import time
-from flask import render_template, make_response
+from flask import render_template, make_response, session
 import json
 
 def response(sts = 0, data = None, token = None):
@@ -26,8 +26,10 @@ def checkAuth(_token):
         return 1
     except:
         return 0
-def setToken(auth):
-    token = "{}.{}.{}".format(sha1(auth.encode('utf-8')).hexdigest(), int(time() + 43200), 5)
+def setToken():
+    if "auth" not in session:
+        return False
+    token = "{}.{}.{}".format(sha1(session['auth'].encode('utf-8')).hexdigest(), int(time() + 43200), 5)
     resp = make_response(render_template("Login.html"))
     resp.set_cookie("_accessToken", token, 604800)
     return resp
