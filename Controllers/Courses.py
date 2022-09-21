@@ -98,7 +98,7 @@ def takeExam(id):
     if len(exam) == 0:
         return redirect("/courses")
     title = exam[0]['name']
-    questions = getQuestions(exam[0]['id'], 5)
+    questions = getQuestions(exam[0]['id'])
     del exam
     return loadSite("Exam.html", title, data={"questions": questions, "score": score})
 

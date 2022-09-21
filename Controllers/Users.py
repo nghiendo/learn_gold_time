@@ -21,18 +21,13 @@ def checkForm(req):
 
     if len(users) == 0:
         return 0
-    return email
+    session['auth'] = email
+    return 1
 
 def SignIn():
     if checkAuth(request.cookies.get('_accessToken')):
         return redirect("/courses")
     result = checkForm(request)
-    token = None
-    if type(result) is str:
-        # return loadSite("Login.html", "Sign In", status = result)
-        token = "{}.{}.{}".format(sha1(result.encode('utf-8')).hexdigest(), int(time() + 43200), 5)
-
-    resp = make_response(render_template("Login.html"))
-    resp.set_cookie("_accessToken", token, 604800)
-    return resp
+    
+    return loadSite("Login.html", "Sign In", status = result)
 

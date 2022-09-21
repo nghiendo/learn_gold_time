@@ -1,7 +1,7 @@
 from ast import Delete
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from Controllers.Users import SignIn
-from Helper.helper import checkAuth
+from Helper.helper import checkAuth, setToken
 from Routes.Courses import courses_router
 from Routes.Users import users_router
 from Routes.Questions import question_router
@@ -11,10 +11,14 @@ from Routes.Delete import delete_router
 app = Flask(__name__)
 
 app.config.from_object("config")
+app.secret_key = "NguyenKhoaLearn"
 def blabla():
     token = request.cookies.get("_accessToken")
     if token is None or checkAuth(token) is False or len(token) == 0:
-        return SignIn()
+        if "auth" not in session:
+            return SignIn()
+        else:
+            return setToken(session['auth'])
 app.before_request_funcs = {
     None: [blabla]
 }
