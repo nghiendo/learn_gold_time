@@ -24,7 +24,7 @@ def checkForm(req):
     return 1
 
 def SignIn():
-    if checkAuth(request.cookies.get('_accessToken')) or ("auth" in session and len(session['auth']) > 0):
+    if checkAuth(request.cookies.get('_accessToken')):
         return redirect(url_for("courses_router.index"))
     result = checkForm(request)
     if result == 1:

@@ -31,5 +31,5 @@ def setToken():
         return False
     token = "{}.{}.{}".format(sha1(session['auth'].encode('utf-8')).hexdigest(), int(time() + 43200), 5)
     resp = make_response(render_template("Login.html"))
-    resp.set_cookie("_accessToken", token, 604800, domain="nguyenkhoalearn.vercel.app/")
+    resp.set_cookie("_accessToken", token, 604800, domain="nguyenkhoalearn.vercel.app")
     return resp
