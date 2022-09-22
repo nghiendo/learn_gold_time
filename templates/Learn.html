@@ -1,0 +1,59 @@
+{% extends 'Base.html' %}
+
+{% block title %}
+{{title}}
+{%endblock%}
+
+{%block content%}
+<div class="col-sm-8 col-md-5 mb-3">
+    {% for question in data.questions %}
+    <div class="card mt-2 d-none" id="{{loop.index}}">
+        <div class="card-body">
+            <div class="card-title">
+                {{question.title}}
+            </div>
+            <div class="card-text" style="min-height: 200px; overflow-y:auto">
+                <ul>
+                    {% for ans in question.answers %}
+                    <li>{{ans.ans}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="justify-content-between d-flex mt-3 mb-4 align-items-center">
+        <button class="btn btn-outline-dark" id="btn-pre-lesson">←Previous</button>
+        <span id="limit" max="{{data.length}}"><strong id="curr">01</strong>/{{data.length}}</span>
+        <button class="btn btn-outline-dark" id="btn-next-lesson">Next→</button>
+    </div>
+    <a href="{{url_for('courses_router.index')}}exam/{{data.lesson.id}}" class="btn btn-secondary btn-sm w-100">Take an exam</a>
+</div>
+<script>
+    var index = 1
+    const   pre = document.getElementById("btn-pre-lesson"),
+    next = document.getElementById("btn-next-lesson"),
+    lim = document.getElementById("limit"),
+    max = Number(lim.getAttribute("max")),
+    curr = document.getElementById("curr")
+    var toggD = (id)=>{
+        document.getElementById(id).classList.toggle("d-none")
+        curr.innerText = index
+    }
+    toggD(index)
+
+    next.addEventListener("click", function(){
+        toggD(index)
+        if(index < max) index++
+        toggD(index)
+    })
+
+    pre.addEventListener("click", function(){
+        toggD(index)
+        if(index > 1) index--
+        toggD(index)
+    })
+
+
+</script>
+{%endblock%}

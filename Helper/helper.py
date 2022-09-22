@@ -31,5 +31,18 @@ def setToken():
         return False
     token = "{}.{}.{}".format(sha1(session['auth'].encode('utf-8')).hexdigest(), int(time() + 43200), 5)
     resp = make_response(render_template("Login.html"))
-    resp.set_cookie("_accessToken", token, 604800, domain="nguyenkhoalearn.vercel.app")
+    resp.set_cookie("_accessToken", token, 604800)
     return resp
+
+def findLocate(content = [], WHERE = {}):
+    for i, x in enumerate(content):
+        flag = False
+        for key, value in WHERE.items():
+            if x[key] == value:
+                flag = True
+            else:
+                flag = False
+                break
+        if flag == True:
+            return i
+    return []

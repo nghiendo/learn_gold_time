@@ -7,7 +7,6 @@ def index():
     return "Question for course"
 
 def addQuestionCourse(cid):
-    cid = int(cid)
     if request.method == 'POST':
         topic = request.form['topic']
         title = request.form['title']
@@ -16,6 +15,7 @@ def addQuestionCourse(cid):
         Database("Questions").insert(Question(title, ans_id, topic, cid).serialize())
 
     course = Database("Courses").select({"id": cid})[0]
+    lessons = Database("Courses").select({"id": cid})[0]['child']
     question = Database("Questions").select({"cid": cid})
     for q in question:
         q['answers'] = q['answers'].split(", ")
@@ -23,7 +23,7 @@ def addQuestionCourse(cid):
             an = Database("Answers").select({"id": an}, 1)[0]
             q['answers'][i] = an['ans']
         q['answers'] = ", ".join(q['answers'])
-    return loadSite("AddQuestion.html", data={"course": course, "questions": question})
+    return loadSite("AddQuestion.html", data={"course": course, "lessons": lessons, "questions": question})
 
 def checkAnswers(answers, topic):
     result = ""

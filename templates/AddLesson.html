@@ -1,0 +1,16 @@
+{% extends "Base.html" %}
+{% block title%}
+{{title}}
+{% endblock %}
+{% block content%}
+<form class="col-sm-5">
+    <div class="form-group">
+        <label for="name">Lesson name:</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <!-- <div class="row">
+        .col-sm-4
+    </div> -->
+    <input type="submit" value="Add Lesson">
+</form>
+{%endblock%}

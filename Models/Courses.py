@@ -11,9 +11,10 @@ class Course():
     
     def serialize(self):
         return {
-            "id": int(time()),
+            "id": "{}{}".format("C", int(time())),
             "name": self.name,
             "img": self.img,
             "tags": self.tags,
-            "date": str(datetime.now())
+            "date": str(datetime.now()),
+            "child": []
         }

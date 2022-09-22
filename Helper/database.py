@@ -1,7 +1,7 @@
 import json
-from operator import truediv
 from os import path
 from config import rootfile
+from Helper.helper import findLocate
 class Database():
     table_dir = None
     def __init__(self, table) -> None:
@@ -26,11 +26,20 @@ class Database():
                     if x[key] == value:
                         flag = True
                     else:
-                        # print(x, value, flag, end="")
-                        # if flag is True:
-                        #     flag = False
-                        #     break
+                        flag = False
                         break
+                if flag is False and "child" in x:
+                    for y in x['child']:
+                        for key, value in WHERE.items():
+                            if y[key] == value:
+                                flag = True
+                            else:
+                                flag = False
+                                break
+                    if flag is True:
+                        result.append(y)
+                        i += 1
+                        continue
                 if flag is True:
                     result.append(x)
                     i += 1
@@ -70,20 +79,11 @@ class Database():
         try:
             with open(self.table_dir, "r") as file:
                 content = json.load(file)
-                for i, x in enumerate(content):
-                    flag = False
-                    for key, value in WHERE.items():
-                        if x[key] == value:
-                            flag = True
-                        else:
-                            flag = False
-                            break
-                    if flag == True:
-                        for key, value in data.items():
-                            content[i][key] = value
-                        with open(self.table_dir, "w") as f:
-                            json.dump(content, f, indent=4)
-                            return 1
-                return 0
+                i = findLocate(content, WHERE)
+                for key, value in data.items():
+                    content[i][key] = value
+                with open(self.table_dir, "w") as f:
+                    json.dump(content, f, indent=4)
+                    return 1
         except:
-            return 0
+            return 0         

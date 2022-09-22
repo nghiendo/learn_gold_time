@@ -16,13 +16,25 @@
             </p> -->
             <div class="row justify-content-sm-center">
                 <a href="/courses/exam/{{data.course.id}}" class="btn btn-primary col-12 mb-2">Take an exam</a>
-                <a href="/questions/add/{{data.course.id}}" class="btn btn-sm btn-outline-secondary col-sm-4">Add Question</a>
+                <a href="/courses/add/{{data.course.id}}" class="btn btn-sm btn-outline-secondary col-sm-3">Add Lesson</a>
+                <a href="/questions/add/{{data.course.id}}" class="btn btn-sm btn-outline-secondary col-sm-4 ms-2">Add Question</a>
             </div>
         </div>
     </div>
 </div>
 <hr>
 <div class="col-12">
+    <ul class="list-group">
+        {% for lesson in data.course.child%}
+        <li class="list-group-item d-flex justify-content-beetween align-items-center">
+            <div class="ms-2 me-auto">
+                {{lesson.name}}
+            </div>
+            <a href="{{url_for('courses_router.index')}}learn/{{data.course.id}}/{{lesson.id}}" class="text-decoration-none me-2">Learn</a>
+            <a href="{{url_for('courses_router.index')}}delete/{{data.course.id}}/{{lesson.id}}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </li>
+        {% endfor%}
+    </ul>   
     {% for question in data.questions %}
     <p>
         {{question.title}}
