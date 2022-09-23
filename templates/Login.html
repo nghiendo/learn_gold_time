@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content%}
 <div class="col-sm-4">
-    <form action="{{url_for('users_router.checkLogin')}}" method="post">
+    <form action="{{url_for('users_router.SignIn')}}" method="post">
         <div class="form-group mb-3">
             <label for="email">Email:</label>
             <input type="email" class="form-control" id="email" name="email" autofocus>
@@ -16,7 +16,6 @@
         {% if success == 0 %}
         <p class="text danger">Sai tên tài khoản hoặc mật khẩu</p>
         {% endif %}
-        {{data.result}}
         <input type="submit" value="Sign In" class="btn btn-primary">
     </form>
 </div>
