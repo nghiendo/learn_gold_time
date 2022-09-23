@@ -2,6 +2,7 @@ from hashlib import md5
 from flask import request, redirect, render_template, session, url_for, globals, jsonify
 from Helper.database import Database
 from Helper.helper import checkAuth, createToken, loadSite, setToken
+from config import rootfile
 
 def loadSignIn():
     return render_template("Login.html", title="Sign In")
@@ -37,4 +38,4 @@ def checkLogin():
     password = request.form['password']
     user = Database('Users').select()
 
-    return jsonify(user)
+    return rootfile()
