@@ -6,7 +6,7 @@ class Database():
     table_dir = None
     def __init__(self, table) -> None:
         table = table
-        self.table_dir = "{}/Data/{}.json".format(rootfile(), table)
+        self.table_dir = "{}/Data/{}.json".format(path.realpath(path.dirname(__file__)), table)
 
     def select(self, WHERE = None, limit = None):
         if path.exists(self.table_dir) is False:
