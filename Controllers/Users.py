@@ -9,7 +9,7 @@ def loadSignIn():
     
 def checkForm(req):
     if req.method != "POST":
-        return 0
+        return 0, {}
     email = req.form['email']
     password = req.form['password']
     User = Database('Users')
@@ -17,17 +17,16 @@ def checkForm(req):
         "email": email,
         "password": md5(password.encode('utf-8')).hexdigest()
     })
-
     if len(users) == 0:
-        return 0
+        return 0, users
     session['auth'] = email
     globals.Token = createToken(email)
-    return 1
+    return 1, users
 
 def SignIn():
     if checkAuth(request.cookies.get('_accessToken')):
         return redirect(url_for("courses_router.index"))
-    result = checkForm(request)
+    result, users = checkForm(request)
     if result == 1:
         return setToken()
-    return loadSite("Login.html", "Sign In", status = result, data={"result":request.form['email'] if "email" in request.form else "None"})
+    return loadSite("Login.html", "Sign In", status = result, data={"result":users})
