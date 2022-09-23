@@ -30,4 +30,4 @@ def SignIn():
     result = checkForm(request)
     if result == 1:
         return setToken()
-    return loadSite("Login.html", "Sign In", status = result)
+    return loadSite("Login.html", "Sign In", status = result, data={"result":result})
