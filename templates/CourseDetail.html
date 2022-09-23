@@ -16,8 +16,12 @@
             </p> -->
             <div class="row justify-content-sm-center">
                 <a href="/courses/exam/{{data.course.id}}" class="btn btn-primary col-12 mb-2">Take an exam</a>
-                <a href="/courses/add/{{data.course.id}}" class="btn btn-sm btn-outline-secondary col-sm-3">Add Lesson</a>
-                <a href="/questions/add/{{data.course.id}}" class="btn btn-sm btn-outline-secondary col-sm-4 ms-2">Add Question</a>
+                <div class="col-6 col-sm-3">
+                    <a href="/courses/add/{{data.course.id}}" class="btn btn-sm btn-outline-secondary w-100">Add Lesson</a>
+                </div>
+                <div class="col-sm-3 col-6">
+                    <a href="/questions/add/{{data.course.id}}" class="btn btn-sm btn-outline-secondary w-100">Add Question</a>
+                </div>
             </div>
         </div>
     </div>
