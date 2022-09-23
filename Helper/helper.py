@@ -33,9 +33,10 @@ def setToken():
     if "auth" not in session:
         return False
     token = createToken(session['auth'])
-    resp = make_response(render_template("Login.html"))
-    resp.set_cookie("_accessToken", token, 604800)
-    return resp
+    # resp = make_response(render_template("Login.html"))
+    # resp.set_cookie("_accessToken", token, 604800)
+    # return resp
+    return globals.Token
 
 def findLocate(content = [], WHERE = {}):
     for i, x in enumerate(content):
