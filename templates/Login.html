@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content%}
 <div class="col-sm-4">
-    <form action="/" method="post">
+    <form action="{{url_for('users_router.checkLogin')}}" method="post">
         <div class="form-group mb-3">
             <label for="email">Email:</label>
             <input type="email" class="form-control" id="email" name="email" autofocus>
