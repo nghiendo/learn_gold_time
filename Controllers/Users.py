@@ -35,6 +35,6 @@ def checkLogin():
         return redirect(url_for("users_router.SignIn"))
     email = request.form['email']
     password = request.form['password']
-    user = Database('Users').select({})
+    user = Database('Users').select()
 
     return jsonify(user)
