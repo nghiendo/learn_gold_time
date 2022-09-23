@@ -1,8 +1,8 @@
 from hashlib import md5
 from time import time
-from flask import request, redirect, render_template, session, url_for
+from flask import request, redirect, render_template, session, url_for, globals
 from Helper.database import Database
-from Helper.helper import checkAuth, loadSite, setToken
+from Helper.helper import checkAuth, createToken, loadSite, setToken
 
 def loadSignIn():
     return render_template("Login.html", title="Sign In")
@@ -21,6 +21,7 @@ def checkForm(req):
     if len(users) == 0:
         return 0
     session['auth'] = email
+    globals.Token = createToken(email)
     return 1
 
 def SignIn():

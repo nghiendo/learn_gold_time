@@ -7,7 +7,7 @@ from Routes.Tags import tags_router
 from Routes.Delete import delete_router
 
 app = Flask(__name__)
-
+app.app_context()
 app.config.from_object("config")
 app.secret_key = "NguyenKhoaLearn"
 

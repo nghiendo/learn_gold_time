@@ -1,5 +1,5 @@
 from random import shuffle
-from flask import render_template, request, redirect, jsonify, url_for
+from flask import request, redirect, url_for, globals
 from Helper.database import Database
 
 from Helper.helper import checkAuth, findLocate, loadSite
@@ -70,18 +70,21 @@ def checkCorrect(answers = []):
     score = cor * 10 / len(answers)
     return "{:.1f}".format(score)
     
-
+def getForm(req = request):
+    if request.method != "POST" or 'name' not in req.form or 'img' not in req.form or 'tags' not in req.form:
+        return None, None, None
+    course = request.form['name']
+    img = request.form['img']
+    tags = request.form['tags']
+    return course, img, tags
 
 def insert():
     if checkAuth(request.cookies.get("_accessToken")) == 0:
         return redirect(url_for('users_router.SignIn'))
     status = -1
     if request.method == "POST":
-        course = request.form['name']
-        image = request.form['img']
-        tags = request.form['tags']
         db = coursedb
-        course = Course(course, image, tags)
+        course = Course(getForm(request))
         course = course.serialize()
         status = 0
         if db.insert(course):
@@ -186,3 +189,19 @@ def learnLesson(id, lid):
         return loadSite("Learn.html", course['name'], data={'lesson': lesson, 'questions': questions, "length": len(questions)})
     except:
         return redirect(url_for("courses_router.index")+"view/"+id)
+
+def editCourse(id):
+    status = -1
+    if request.method == "POST":
+        name, img, tags = getForm(request)
+        status = 0
+        if coursedb.update({
+            "name": name,
+            "img": img,
+            "tags": tags
+        }, {"id": id}):
+            status = 1
+
+    course = coursedb.select({"id": id})[0]
+    tags = Database("Tags").select()
+    return loadSite("AddCourse.html", "Edit Course", status=status, data={"course": course, "tags": tags})

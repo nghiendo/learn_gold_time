@@ -1,9 +1,10 @@
 from flask import Blueprint
 
-from Controllers.Courses import deleteCourse, index, insert, takeExam, viewCourse, addLesson, deleteLesson, learnLesson
+from Controllers.Courses import deleteCourse, index, insert, takeExam, viewCourse, addLesson, deleteLesson, learnLesson, editCourse
 courses_router = Blueprint("courses_router", __name__)
 courses_router.route("/", methods=['GET'])(index)
 courses_router.route("/add", methods=['GET', 'POST'])(insert)
+courses_router.route("/edit/<id>", methods=['GET', 'POST'])(editCourse)
 courses_router.route("/add/<id>", methods=['GET', 'POST'])(addLesson)
 courses_router.route("/view/<id>", methods=['GET'])(viewCourse)
 courses_router.route("/learn/<id>/<lid>", methods=['GET'])(learnLesson)

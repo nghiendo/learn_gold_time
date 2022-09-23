@@ -1,6 +1,6 @@
 {% extends 'Base.html' %}
 {% block title %}
-Thêm bài học
+{{title}}
 {% endblock %}
 
 {% block content%}
@@ -31,7 +31,7 @@ Thêm bài học
         {% if status == 0 %}
             <p class="text-danger">Có lỗi đã xảy ra</p>
         {% endif %}
-        <input type="submit" class="btn btn-primary" value="Add">
+        <input type="submit" class="btn btn-primary">
     </form>
 </div>
 <script>

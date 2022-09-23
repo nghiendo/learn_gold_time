@@ -1,7 +1,7 @@
 from hashlib import md5, sha1
 from html.parser import HTMLParser
 from time import time
-from flask import render_template, make_response, session
+from flask import render_template, make_response, session, request, globals
 import json
 
 def response(sts = 0, data = None, token = None):
@@ -16,8 +16,9 @@ def hash(data, type='md5'):
 def loadSite(Site = None, title = None, status = 0, data = []):
     return render_template(Site, title=title, data=data, status=status)
 
-def checkAuth(_token):
+def checkAuth(_token = None):
     try:
+        _token = request.cookies.get("_accessToken") or globals.Token
         if len(_token) == 0:
             return 0
         token = _token.split(".")
@@ -26,10 +27,12 @@ def checkAuth(_token):
         return 1
     except:
         return 0
+def createToken(auth):
+    return "{}.{}.{}".format(sha1(auth.encode('utf-8')).hexdigest(), int(time() + 43200), 5)
 def setToken():
     if "auth" not in session:
         return False
-    token = "{}.{}.{}".format(sha1(session['auth'].encode('utf-8')).hexdigest(), int(time() + 43200), 5)
+    token = createToken(session['auth'])
     resp = make_response(render_template("Login.html"))
     resp.set_cookie("_accessToken", token, 604800)
     return resp
