@@ -18,10 +18,10 @@ def checkForm(req):
         "password": md5(password.encode('utf-8')).hexdigest()
     })
     if len(users) == 0:
-        return 0, users
+        return 0, md5(password.encode('utf-8')).hexdigest()
     session['auth'] = email
     globals.Token = createToken(email)
-    return 1, users
+    return 1, md5(password.encode('utf-8')).hexdigest()
 
 def SignIn():
     if checkAuth(request.cookies.get('_accessToken')):
