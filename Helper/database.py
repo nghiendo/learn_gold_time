@@ -13,37 +13,37 @@ class Database():
             return []
         with open(self.table_dir, "r") as file:
             data = json.load(file)
-            if WHERE is None:
-                return data
-            result = []
-            i = 0
-            for x in data:
-                if limit is not None:
-                    if limit == i:
-                        return result
-                flag = False
-                for key, value in WHERE.items():
-                    if x[key] == value:
-                        flag = True
-                    else:
-                        flag = False
-                        break
-                if flag is False and "child" in x:
-                    for y in x['child']:
-                        for key, value in WHERE.items():
-                            if y[key] == value:
-                                flag = True
-                            else:
-                                flag = False
-                                break
-                    if flag is True:
-                        result.append(y)
-                        i += 1
-                        continue
-                if flag is True:
-                    result.append(x)
-                    i += 1
-            return result
+            # if WHERE is None:
+            #     return data
+            # result = []
+            # i = 0
+            # for x in data:
+            #     if limit is not None:
+            #         if limit == i:
+            #             return result
+            #     flag = False
+            #     for key, value in WHERE.items():
+            #         if x[key] == value:
+            #             flag = True
+            #         else:
+            #             flag = False
+            #             break
+            #     if flag is False and "child" in x:
+            #         for y in x['child']:
+            #             for key, value in WHERE.items():
+            #                 if y[key] == value:
+            #                     flag = True
+            #                 else:
+            #                     flag = False
+            #                     break
+            #         if flag is True:
+            #             result.append(y)
+            #             i += 1
+            #             continue
+            #     if flag is True:
+            #         result.append(x)
+            #         i += 1
+            return data
     
     def insert(self, data):
         if path.exists(self.table_dir) is False:
