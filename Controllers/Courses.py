@@ -134,9 +134,7 @@ def viewCourse(id):
         return redirect(url_for('users_router.SignIn'))
     try:
         course = coursedb.select({"id": id})[0]
-        questions = Database("Questions").select()
-        questions = getAnswers(questions)
-        return loadSite("CourseDetail.html", course['name'], data={"course":course,"questions":questions})
+        return loadSite("CourseDetail.html", course['name'], data={"course":course})
     except:
         return redirect("/courses")
 

@@ -34,23 +34,7 @@
             <a href="{{url_for('courses_router.index')}}delete/{{data.course.id}}/{{lesson.id}}" class="btn btn-sm btn-outline-danger">Delete</a>
         </li>
         {% endfor%}
-    </ul>   
-    {% for question in data.questions %}
-    <p>
-        {{question.title}}
-        <ul>
-            {% for a in question.answers %}
-                <li>
-                    <h5>
-                        <span class="badge text-bg-secondary">{{a.ans}}</span>
-                    </h5>
-                </li>    
-            {% endfor %}
-
-        </ul>
-
-    </p>
-    {% endfor %}
+    </ul>
     <h1>Analysis</h1>
     <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
