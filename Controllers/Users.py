@@ -32,10 +32,10 @@ def SignIn():
     return loadSite("Login.html", "Sign In", status = result, data={"result":users})
 
 def checkLogin():
-    # if request.method != "POST":
-    #     return redirect(url_for("users_router.SignIn"))
-    # email = request.form['email']
-    # password = request.form['password']
-    # user = Database('Users').select()
+    if request.method != "POST":
+        return redirect(url_for("users_router.SignIn"))
+    email = request.form['email']
+    password = request.form['password']
+    user = Database('Users').select()
 
-    return rootfile()
+    return user
